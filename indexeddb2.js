@@ -1,4 +1,5 @@
 const button = document.querySelector('.button');
+const result = document.querySelector('.result');
 
 let savedb;
 
@@ -11,9 +12,19 @@ const objectStatic = {
 button.addEventListener('click', function() {
   const tx = savedb.transaction("saveInstagram", "readwrite");
   const store = tx.objectStore("saveInstagram");
+  objectStatic.age += objectStatic.age+1;
   const objectStore = store.add(objectStatic);
   objectStore.onsuccess = (e) => {
     console.log('success')
+  }
+})
+
+result.addEventListener('click', () => {
+  const tx = savedb.transaction("saveInstagram", "readwrite");
+  const store = tx.objectStore("saveInstagram");
+  const objectStore = store.getAll();
+  objectStore.onsuccess = (e) => {
+    console.log(e.target.result);
   }
 })
 
